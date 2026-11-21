@@ -48,7 +48,7 @@ function doPost(e) {
     sheet.appendRow([
       new Date(),
       String(data.name || ''),
-      normalizePhone(data.phone),
+      textPhone(data.phone),
       String(data.checkin || ''),
       String(data.checkout || ''),
       String(data.comment || ''),
@@ -82,6 +82,14 @@ function doGet() {
   return ContentService.createTextOutput(text);
 }
 
+/**
+ * Апостроф перед номером заставляет Google Sheets хранить значение текстом,
+ * а не формулой. Сам апостроф в ячейке не отображается.
+ */
+function textPhone(value) {
+  return "'" + normalizePhone(value);
+}
+
 /** Приводит телефон к текстовому виду +7 (XXX) XXX-XX-XX. */
 function normalizePhone(value) {
   let digits = String(value || '').replace(/\D/g, '');
@@ -112,7 +120,10 @@ function fixPhoneColumn() {
   const range = sheet.getRange(2, 3, last - 1, 1);
   const formulas = range.getFormulas();
   const values = range.getValues();
-  const fixed = formulas.map((row, i) => [String(row[0] || values[i][0] || '')]);
+  const fixed = formulas.map((row, i) => {
+    const raw = row[0] || values[i][0] || '';
+    return [textPhone(raw)];
+  });
 
   range.setNumberFormat('@');
   range.setValues(fixed);
