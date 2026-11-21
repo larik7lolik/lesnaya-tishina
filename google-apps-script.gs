@@ -17,6 +17,9 @@ function doPost(e) {
   try {
     const data = parsePayload(e);
     const ss = SpreadsheetApp.getActiveSpreadsheet();
+    if (!ss) {
+      throw new Error('Скрипт не привязан к таблице: откройте её и создайте Apps Script через Расширения → Apps Script');
+    }
     let sheet = ss.getSheetByName(SHEET_NAME);
 
     if (!sheet) {
@@ -39,7 +42,12 @@ function doPost(e) {
       String(data.sentAt || '')
     ]);
 
-    return jsonResponse({ ok: true });
+    return jsonResponse({
+      ok: true,
+      spreadsheetUrl: ss.getUrl(),
+      sheet: SHEET_NAME,
+      row: sheet.getLastRow()
+    });
   } catch (error) {
     return jsonResponse({ ok: false, error: error.message });
   } finally {
@@ -47,9 +55,16 @@ function doPost(e) {
   }
 }
 
-/** Проверка, что веб-приложение доступно (открытие URL в браузере). */
+/**
+ * Проверка: откройте URL веб-приложения в браузере — увидите,
+ * в какую именно таблицу и лист идут заявки.
+ */
 function doGet() {
-  return ContentService.createTextOutput('Лесная Тишина — приём заявок активен');
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const text = ss
+    ? 'Лесная Тишина — приём заявок активен\nТаблица: ' + ss.getUrl() + '\nЛист: ' + SHEET_NAME
+    : 'Лесная Тишина — скрипт не привязан к таблице';
+  return ContentService.createTextOutput(text);
 }
 
 function parsePayload(e) {

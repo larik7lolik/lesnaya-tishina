@@ -132,13 +132,22 @@
       sentAt: new Date().toISOString()
     };
 
-    // no-cors нужен, чтобы Apps Script принял запрос без CORS-конфигурации.
-    await fetch(getEndpoint(), {
+    // text/plain — простой запрос, preflight не нужен. Ответ читаем, чтобы
+    // не показывать ложный успех, если Apps Script вернул ошибку.
+    const response = await fetch(getEndpoint(), {
       method: 'POST',
-      mode: 'no-cors',
+      mode: 'cors',
       headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
       body: JSON.stringify(payload)
     });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || result.ok !== true) {
+      throw new Error(result.error || `HTTP ${response.status}`);
+    }
+    if (result.spreadsheetUrl) {
+      console.info('[Лесная Тишина] Заявка записана в таблицу:', result.spreadsheetUrl);
+    }
+    return result;
   }
 
   form.addEventListener('submit', async event => {
