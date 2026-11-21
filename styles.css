@@ -1,0 +1,119 @@
+/* ==========================================================
+   Форма заявки «Лесная Тишина»
+   Зимний лес: белый фон, тёмно-зелёные акценты, углы 12px.
+   ========================================================== */
+
+.modal.rf-dialog {
+  width: min(100% - 32px, 520px);
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 30px 80px rgba(18, 52, 38, .28);
+  color: #1b3327;
+}
+.modal.rf-dialog::backdrop { background: rgba(12, 34, 25, .58); backdrop-filter: blur(6px); }
+
+.rf-body { padding: 30px 30px 26px; }
+.rf-kicker {
+  display: inline-block; margin-bottom: 8px; color: #2f6b4f;
+  font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+}
+.rf-title { margin: 0 0 8px; font-size: 25px; line-height: 1.2; letter-spacing: -.03em; color: #173a2b; }
+.rf-intro { margin: 0 0 22px; font-size: 13px; line-height: 1.6; color: #688074; }
+
+.rf-field { margin-bottom: 14px; }
+.rf-field label { display: block; margin-bottom: 6px; font-size: 12px; font-weight: 700; color: #28483a; }
+.rf-field input,
+.rf-field textarea {
+  display: block; width: 100%; padding: 12px 14px;
+  border: 1px solid #cfe0d5; border-radius: 12px;
+  background: #fbfdfb; color: #1b3327; font: inherit; font-size: 14px;
+  outline: none; transition: border-color .25s, box-shadow .25s, background .25s;
+}
+.rf-field textarea { min-height: 84px; resize: vertical; line-height: 1.5; }
+.rf-field input::placeholder,
+.rf-field textarea::placeholder { color: #9ab0a3; }
+.rf-field input:focus,
+.rf-field textarea:focus {
+  border-color: #2f6b4f; background: #fff;
+  box-shadow: 0 0 0 4px rgba(47, 107, 79, .12);
+}
+.rf-field [aria-invalid="true"] { border-color: #c0392b; background: #fffafa; }
+
+/* Нативный date-picker */
+.rf-field input[type="date"] { color-scheme: light; min-height: 46px; }
+.rf-field input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer; opacity: .55; transition: opacity .25s;
+}
+.rf-field input[type="date"]:hover::-webkit-calendar-picker-indicator { opacity: 1; }
+
+.rf-error {
+  display: block; min-height: 15px; margin-top: 4px;
+  color: #c0392b; font-size: 11.5px; line-height: 1.3;
+}
+.rf-error:empty { display: none; }
+
+.rf-dates { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.rf-dates .rf-field { margin-bottom: 14px; }
+
+.rf-consent { margin: 18px 0 0; }
+.rf-checkbox {
+  display: flex; align-items: flex-start; gap: 10px; cursor: pointer;
+  font-size: 12px; line-height: 1.5; color: #4b6657;
+}
+.rf-checkbox input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.rf-checkbox__box {
+  flex: 0 0 18px; width: 18px; height: 18px; margin-top: 1px;
+  display: grid; place-items: center; border: 1px solid #cfe0d5; border-radius: 6px;
+  background: #fbfdfb; color: transparent; font-size: 12px; line-height: 1;
+  transition: background .25s, border-color .25s, box-shadow .25s;
+}
+.rf-checkbox input:checked + .rf-checkbox__box { background: #2f6b4f; border-color: #2f6b4f; color: #fff; }
+.rf-checkbox input:focus-visible + .rf-checkbox__box { box-shadow: 0 0 0 4px rgba(47, 107, 79, .12); }
+.rf-checkbox input[aria-invalid="true"] + .rf-checkbox__box { border-color: #c0392b; }
+.rf-consent .rf-error { margin-left: 28px; }
+
+.rf-form-error {
+  margin: 6px 0 0; color: #c0392b; font-size: 12px; line-height: 1.5;
+}
+.rf-form-error:empty { display: none; }
+.rf-submit:disabled { opacity: .65; cursor: wait; transform: none; }
+
+.rf-submit {
+  display: block; width: 100%; margin-top: 8px; padding: 15px 20px;
+  border: 0; border-radius: 12px; cursor: pointer;
+  background: linear-gradient(135deg, #3b7d5c, #1e4634);
+  color: #fff; font: inherit; font-size: 15px; font-weight: 800;
+  box-shadow: 0 12px 26px rgba(30, 70, 52, .22);
+  transition: transform .35s cubic-bezier(.22, 1, .36, 1), box-shadow .35s;
+}
+.rf-submit:hover { transform: translateY(-3px); box-shadow: 0 18px 34px rgba(30, 70, 52, .3); }
+.rf-submit:active { transform: translateY(-1px); }
+.rf-submit:focus-visible { outline: 3px solid rgba(47, 107, 79, .35); outline-offset: 3px; }
+
+.rf-micro { margin: 12px 0 0; text-align: center; color: #7c9285; font-size: 11px; line-height: 1.5; }
+
+.rf-close {
+  position: absolute; top: 14px; right: 14px; width: 32px; height: 32px;
+  display: grid; place-items: center; padding: 0;
+  border: 0; border-radius: 12px; background: #eef5f0;
+  color: #2f6b4f; font-size: 21px; line-height: 1; cursor: pointer;
+  transition: background .25s;
+}
+.rf-close:hover { background: #dcebe1; }
+
+.rf-success { padding: 42px 30px 34px; text-align: center; }
+.rf-success__icon {
+  width: 58px; height: 58px; margin: 0 auto 18px; border-radius: 50%;
+  display: grid; place-items: center; background: #2f6b4f; color: #fff; font-size: 28px; font-weight: 800;
+}
+.rf-success__text { margin: 0 0 24px; color: #416152; font-size: 14px; line-height: 1.7; }
+.rf-success .rf-submit { max-width: 220px; margin-inline: auto; }
+
+@media (max-width: 620px) {
+  .rf-body { padding: 26px 20px 22px; }
+  .rf-dates { grid-template-columns: 1fr; gap: 0; }
+  .rf-title { font-size: 22px; }
+  .rf-success { padding: 36px 20px 28px; }
+}

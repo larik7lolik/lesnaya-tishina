@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#eaf4fb" />
+  <meta name="description" content="Лесная Тишина — отель в сердце зимнего леса. Приватные шале, камин, вид на горы и честная цена до 25 ноября." />
+  <title>Лесная Тишина — отель в сердце зимнего леса</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Шрифт подключается неблокирующе: лендинг работает и без интернета -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" /></noscript>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Атмосфера -->
+  <div class="ambient" aria-hidden="true">
+    <span class="ambient-blob ambient-blob--one"></span>
+    <span class="ambient-blob ambient-blob--two"></span>
+    <span class="ambient-blob ambient-blob--three"></span>
+  </div>
+  <canvas id="snow" aria-hidden="true"></canvas>
+
+  <!-- Шапка -->
+  <header class="site-header" id="header">
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="Лесная Тишина — наверх">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M20 4 9 19h6l-7 10h10v7h4v-7h10L25 19h6L20 4Z" fill="currentColor"/>
+          </svg>
+        </span>
+        <span class="brand-text">Лесная <b>Тишина</b></span>
+      </a>
+
+      <nav class="nav-links" id="navLinks" aria-label="Основная навигация">
+        <a href="#pains">О отеле</a>
+        <a href="#solutions">Решения</a>
+        <a href="#showroom">Шале 3D</a>
+        <a href="#reviews">Отзывы</a>
+        <a href="#gallery">Галерея</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" title="Переключить новогоднюю тему">
+          <span class="theme-toggle__track" aria-hidden="true"><span class="theme-toggle__thumb"></span></span>
+          <span class="theme-toggle__label">Новогодняя</span>
+        </button>
+        <a class="btn btn--small btn--header" href="#booking">Фиксировать цену</a>
+        <button class="burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="hero-visual" aria-hidden="true">
+        <picture class="hero-photo" data-parallax="0.12">
+          <source srcset="assets/img/photo-03.webp" type="image/webp" />
+          <img src="assets/img/photo-03.jpg" alt="" fetchpriority="high" />
+        </picture>
+        <div class="hero-photo-veil"></div>
+        <svg class="hero-garland" viewBox="0 0 900 130" preserveAspectRatio="none" fill="none">
+          <path d="M0 8Q225 122 450 64T900 12" stroke="#9bb4c4" stroke-width="2" />
+          <circle class="bulb b1" cx="80" cy="52" r="4"/><circle class="bulb b2" cx="170" cy="76" r="4"/>
+          <circle class="bulb b3" cx="260" cy="88" r="4"/><circle class="bulb b4" cx="350" cy="80" r="4"/>
+          <circle class="bulb b5" cx="450" cy="64" r="4"/><circle class="bulb b6" cx="550" cy="66" r="4"/>
+          <circle class="bulb b7" cx="650" cy="56" r="4"/><circle class="bulb b8" cx="750" cy="38" r="4"/>
+          <circle class="bulb b9" cx="840" cy="20" r="4"/>
+        </svg>
+        <div class="hero-snowbank" data-parallax="0.4"></div>
+      </div>
+      </div>
+
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <div class="eyebrow reveal"><span class="eyebrow-dot"></span> Красная Поляна · Эсто-Садок · зима 2026/27</div>
+          <h1 class="reveal" style="--delay:.08s">Перенеситесь в <span class="accent-word">зимнюю сказку</span> за 3 секунды</h1>
+          <p class="hero-lead reveal" style="--delay:.16s">Отель в сердце леса: тишина, камин и вид на горы, который вы запомните навсегда.</p>
+          <div class="hero-actions reveal" style="--delay:.24s">
+            <a class="btn btn--primary" href="#booking">Фиксировать цену до 25.11 <span class="btn-arrow" aria-hidden="true">→</span></a>
+            <a class="btn btn--ghost" href="#showroom">Посмотреть шале в 3D</a>
+          </div>
+          <div class="hero-proof reveal" style="--delay:.32s">
+            <div class="avatar-stack" aria-hidden="true"><span>А</span><span>Д</span><span>Е</span></div>
+            <p><b>4 номера</b> на новогодние даты · бронируют с 2019 года</p>
+          </div>
+        </div>
+      </div>
+
+      <a class="scroll-cue" href="#pains" aria-label="Листать дальше"><span></span> листайте вниз</a>
+    </section>
+
+    <!-- ЦИФРЫ -->
+    <section class="stats-wrap" aria-label="Ключевые факты">
+      <div class="container">
+        <div class="stats glass reveal">
+          <div class="stat"><b>40 <small>м</small></b><span>между шале</span></div>
+          <div class="stat"><b>55 <small>дБ</small></b><span>звукоизоляция стен</span></div>
+          <div class="stat"><b>6 <small>мин</small></b><span>до канатной дороги</span></div>
+          <div class="stat"><b>4 <small>номера</small></b><span>осталось на праздники</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- БОЛИ -->
+    <section class="section pains" id="pains">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-kicker">Знакомо?</span>
+          <h2>Вы ищете не «отель», а <span class="hl">тишину</span></h2>
+          <p>Собрали три мысли, которые чаще всего приходят перед бронированием. И честно отвечаем на каждую.</p>
+        </div>
+
+        <div class="cards cards--pains">
+          <article class="glass card pain reveal" style="--delay:.05s">
+            <div class="card-icon card-icon--blue" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M3 11 12 4l9 7M5 10v10h14V10M9 20v-6h6v6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <span class="card-index">01 / приватность</span>
+            <h3>«Боюсь приехать в “муравейник”»</h3>
+            <p>Вы мечтаете о горнолыжном отдыхе, но пугают фото отелей, где балконы смотрят друг на друга, а слышимость такая, что знаешь расписание соседей. Вам нужна настоящая изоляция и приватность, а не общежитие люкс-класса.</p>
+            <span class="card-link">Как мы решаем это →</span>
+          </article>
+
+          <article class="glass card pain reveal" style="--delay:.14s">
+            <div class="card-icon card-icon--blue" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M17 7.5c0-2-2.2-3-5-3s-5 1-5 3 2.2 2.7 5 3.3 5 1.3 5 3.4-2.2 3.3-5 3.3-5-1.3-5-3.3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            </div>
+            <span class="card-index">02 / цена</span>
+            <h3>«Не хочу переплачивать за “праздничный пакет”»</h3>
+            <p>К Новому году цены в Сочи взлетают на 200–300%, но часто вы платите только за дату, а не за качество. Обидно отдать 80 000 ₽ за неделю и обнаружить, что из «премиума» там только наценник в меню ресторана.</p>
+            <span class="card-link">Как мы решаем это →</span>
+          </article>
+
+          <article class="glass card pain reveal" style="--delay:.23s">
+            <div class="card-icon card-icon--blue" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 17h3l2-8 3 11 3-14 2 8h3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.3" opacity=".35"/></svg>
+            </div>
+            <span class="card-index">03 / логистика</span>
+            <h3>«Устану от логистики больше, чем от катания»</h3>
+            <p>Стоять в пробках на серпантинах по 2 часа после каталки — это убивает весь кайф. Вам нужно место, где дорога до трассы занимает меньше времени, чем сборы в номере.</p>
+            <span class="card-link">Как мы решаем это →</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- РЕШЕНИЯ -->
+    <section class="section solutions" id="solutions">
+      <div class="container">
+        <div class="section-head section-head--split reveal">
+          <div>
+            <span class="section-kicker">Факты вместо обещаний</span>
+            <h2>Тишина, честность и <span class="hl">6 минут</span> до трассы</h2>
+          </div>
+          <p>Никаких «премиум-ощущений» на словах. Только цифры, которые можно проверить заездом.</p>
+        </div>
+
+        <div class="cards cards--solutions">
+          <article class="glass card solution reveal" style="--delay:.05s">
+            <div class="solution-top"><span class="big-number">100<small>%</small></span><span class="pill">приватность</span></div>
+            <h3>Ваши соседи — олени и сосны</h3>
+            <p>Расстояние между нашими шале — <b>40 метров</b>. Звукоизоляция стен — <b>55 дБ</b>, тише, чем в библиотеке. Ни одного балкона напротив.</p>
+            <div class="mini-photo reveal"><picture><source srcset="assets/img/photo-01.webp" type="image/webp" /><img src="assets/img/photo-01.jpg" alt="" loading="lazy" /></picture></div>
+          </article>
+
+          <article class="glass card solution reveal" style="--delay:.14s">
+            <div class="solution-top"><span class="big-number">25<small>.11</small></span><span class="pill pill--warm">фиксация цены</span></div>
+            <h3>Честная цена без новогодней наценки</h3>
+            <p>Фиксируем стоимость проживания до 25 ноября. Дальше — динамическое ценообразование <b>(+40% к текущему прайсу)</b>. Вы платите за спальное место, халат и вид, а не за дату в календаре.</p>
+            <div class="mini-photo reveal"><picture><source srcset="assets/img/photo-05.webp" type="image/webp" /><img src="assets/img/photo-05.jpg" alt="" loading="lazy" /></picture></div>
+          </article>
+
+          <article class="glass card solution reveal" style="--delay:.23s">
+            <div class="solution-top"><span class="big-number">6<small>мин</small></span><span class="pill">без пробок</span></div>
+            <h3>Нижняя точка серпантина</h3>
+            <p>До канатной дороги «Роза Хутор» — 6 минут на нашем <b>бесплатном трансфере Mercedes V-Class</b>. Никаких пробок на въезде в курортную зону.</p>
+            <div class="mini-photo reveal"><picture><source srcset="assets/img/photo-06.webp" type="image/webp" /><img src="assets/img/photo-06.jpg" alt="" loading="lazy" /></picture></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3D SHOUROOM -->
+    <section class="section showroom" id="showroom">
+      <div class="container showroom-grid">
+        <div class="showroom-copy reveal">
+          <span class="section-kicker">Интерактив · 3D</span>
+          <h2>Подойдите к шале <span class="hl">№4</span> — и услышите тишину</h2>
+          <p>Двигайте курсором по сцене: камера приближается, а рядом с каждым шале всплывают реальные истории постояльцев.</p>
+          <div class="scene-hint"><span class="scene-hint__pulse"></span> Наведите на шале или нажмите на метку</div>
+          <div class="scene-tabs" role="tablist" aria-label="Истории постояльцев">
+            <button class="scene-tab is-active" type="button" role="tab" aria-selected="true" data-cloud="anna">Анна · шале №4</button>
+            <button class="scene-tab" type="button" role="tab" aria-selected="false" data-cloud="dmitry">Дмитрий · семья</button>
+            <button class="scene-tab" type="button" role="tab" aria-selected="false" data-cloud="elena">Елена · соло</button>
+          </div>
+        </div>
+
+        <div class="showroom-stage reveal" style="--delay:.12s">
+          <div class="stage-glow" aria-hidden="true"></div>
+          <div class="scene3d" id="chalet3d" tabindex="0" aria-label="3D-сцена с шале и отзывами">
+            <div class="scene3d__layer scene3d__layer--backphoto" aria-hidden="true">
+              <picture><source srcset="assets/img/photo-02.webp" type="image/webp" /><img src="assets/img/photo-02.jpg" alt="" loading="lazy" /></picture>
+            </div>
+            <div class="scene3d__layer scene3d__layer--ground" aria-hidden="true"><div class="ground-ellipse"></div></div>
+
+            <div class="scene3d__layer scene3d__layer--chalet" data-depth="58">
+              <div class="chalet-photo" aria-hidden="true">
+                <picture><source srcset="assets/img/chalet.webp" type="image/webp" /><img src="assets/img/chalet.jpg" alt="" loading="lazy" /></picture>
+                <span class="chalet-photo__label">шале №4</span>
+              </div>
+              <button class="chalet-pin" id="chaletPin" type="button" aria-label="Открыть историю Анны из шале №4"><span></span> Шале №4</button>
+            </div>
+
+            <div class="scene3d__layer scene3d__layer--foreground" aria-hidden="true"><div class="foreground-snow"></div></div>
+
+            <!-- Всплывающие облачки-отзывы -->
+            <div class="review-cloud review-cloud--anna is-visible" data-cloud="anna" role="status">
+              <span class="cloud-head"><span class="cloud-avatar">А</span> Анна К. <small>шале №4 · 30.12–06.01</small></span>
+              <p>«Когда заехали в шале №4, поняли: здесь реально тихо. Слышно только треск дров в камине. Вид из окна — как в Pinterest, без единого чужого балкона».</p>
+              <span class="cloud-tail"></span>
+            </div>
+            <div class="review-cloud review-cloud--dmitry" data-cloud="dmitry" role="status">
+              <span class="cloud-head"><span class="cloud-avatar">Д</span> Дмитрий С. <small>семья · 7 и 10 лет</small></span>
+              <p>«Доехали от станции за 15 минут, а не за час. Детям дали отдельные халаты и тапочки. Цена не изменилась, хотя бронировали в середине ноября».</p>
+              <span class="cloud-tail"></span>
+            </div>
+            <div class="review-cloud review-cloud--elena" data-cloud="elena" role="status">
+              <span class="cloud-head"><span class="cloud-avatar">Е</span> Елена М. <small>соло · 02.01–05.01</small></span>
+              <p>«Прислали видеообзор номера перед заездом — сразу стало спокойнее. Камин топили каждый вечер, запах хвои настоящий. Это про ощущения, а не про золотые унитазы».</p>
+              <span class="cloud-tail"></span>
+            </div>
+          </div>
+          <div class="stage-caption"><span class="stage-caption__dot"></span> Камера: обзор · наведите на сцену для приближения</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ОТЗЫВЫ -->
+    <section class="section reviews" id="reviews">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-kicker">Реальные истории</span>
+          <h2>Не «всё было супер», <span class="hl">а конкретика</span></h2>
+          <p>Имена, даты и детали — именно то, по чему мы сами выбираем отели.</p>
+        </div>
+
+        <div class="cards cards--reviews">
+          <article class="glass card review reveal" style="--delay:.05s">
+            <div class="review-meta"><span class="review-avatar">А</span><div><b>Анна К.</b><small>бронь на 30.12–06.01</small></div><span class="quote-mark">“</span></div>
+            <p>Ехали с мужем и боялись, что будет шумно из-за праздника. Но когда заехали в шале №4, поняли: здесь реально тихо. Слышно только треск дров в камине. Вид из окна — как в Pinterest, без единого чужого балкона. Трансфер встретил точно по времени, водитель даже грелый чай предложил. Вернемся обязательно!</p>
+            <div class="review-foot"><span class="stars" aria-label="5 из 5">★★★★★</span><span>Пара · шале №4</span></div>
+          </article>
+
+          <article class="glass card review reveal" style="--delay:.14s">
+            <div class="review-meta"><span class="review-avatar review-avatar--blue">Д</span><div><b>Дмитрий С.</b><small>семья с двумя детьми (7 и 10 лет)</small></div><span class="quote-mark">“</span></div>
+            <p>Главный страх был — дети устанут от дороги. Но мы доехали от станции за 15 минут, а не за час, как предупреждали друзья. Номер просторный, детям дали отдельные халаты и тапочки (это мелочь, но приятно). Цена не изменилась, хотя бронировали в середине ноября. Спасибо, что не накрутили к НГ!</p>
+            <div class="review-foot"><span class="stars" aria-label="5 из 5">★★★★★</span><span>Семья · ноябрь</span></div>
+          </article>
+
+          <article class="glass card review reveal" style="--delay:.23s">
+            <div class="review-meta"><span class="review-avatar review-avatar--mint">Е</span><div><b>Елена М.</b><small>соло-путешествие · 02.01–05.01</small></div><span class="quote-mark">“</span></div>
+            <p>Приехала одна перезагрузиться. Персонал не навязчивый, но всегда на связи в WhatsApp. Прислали видеообзор номера перед заездом — сразу стало спокойнее. Камин топили каждый вечер, запах хвои настоящий, не искусственный. Это тот случай, когда «премиум» — это про ощущения, а не про золотые унитазы.</p>
+            <div class="review-foot"><span class="stars" aria-label="5 из 5">★★★★★</span><span>Соло · шале №2</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ГАЛЕРЕЯ -->
+    <section class="section gallery" id="gallery">
+      <div class="container">
+        <div class="section-head section-head--split reveal">
+          <div>
+            <span class="section-kicker">Галерея</span>
+            <h2>Место, которое <span class="hl">говорит само за себя</span></h2>
+          </div>
+          <p>Наши кадры — без ретуши и стоков. Нажмите на фото, чтобы рассмотреть детали.</p>
+        </div>
+        <div class="gallery-grid">
+          <button class="gallery-item gallery-item--wide reveal" style="--delay:0.07s" type="button"
+            data-full="assets/img/photo-01.jpg" data-webp="assets/img/photo-01.webp" data-caption="08.01.2021 · Лесная Тишина" aria-label="Открыть фото 1 из 6">
+            <picture><source srcset="assets/img/photo-01.webp" type="image/webp" /><img src="assets/img/photo-01.jpg" alt="08.01.2021 · Лесная Тишина" loading="lazy" /></picture>
+            <span class="gallery-item__zoom" aria-hidden="true">＋</span>
+          </button>
+          <button class="gallery-item gallery-item--wide reveal" style="--delay:0.14s" type="button"
+            data-full="assets/img/photo-02.jpg" data-webp="assets/img/photo-02.webp" data-caption="08.01.2021 · Лесная Тишина" aria-label="Открыть фото 2 из 6">
+            <picture><source srcset="assets/img/photo-02.webp" type="image/webp" /><img src="assets/img/photo-02.jpg" alt="08.01.2021 · Лесная Тишина" loading="lazy" /></picture>
+            <span class="gallery-item__zoom" aria-hidden="true">＋</span>
+          </button>
+          <button class="gallery-item gallery-item--wide reveal" style="--delay:0.00s" type="button"
+            data-full="assets/img/photo-03.jpg" data-webp="assets/img/photo-03.webp" data-caption="08.01.2021 · Лесная Тишина" aria-label="Открыть фото 3 из 6">
+            <picture><source srcset="assets/img/photo-03.webp" type="image/webp" /><img src="assets/img/photo-03.jpg" alt="08.01.2021 · Лесная Тишина" loading="lazy" /></picture>
+            <span class="gallery-item__zoom" aria-hidden="true">＋</span>
+          </button>
+          <button class="gallery-item gallery-item--tall gallery-item--chalet reveal" style="--delay:0.07s" type="button"
+            data-full="assets/img/chalet.jpg" data-webp="assets/img/chalet.webp" data-caption="Шале в лесу" aria-label="Открыть фото 4 из 6">
+            <picture><source srcset="assets/img/chalet.webp" type="image/webp" /><img src="assets/img/chalet.jpg" alt="Шале в лесу" loading="lazy" /></picture>
+            <span class="gallery-item__zoom" aria-hidden="true">＋</span>
+          </button>
+          <button class="gallery-item gallery-item--tall reveal" style="--delay:0.14s" type="button"
+            data-full="assets/img/photo-05.jpg" data-webp="assets/img/photo-05.webp" data-caption="20.02.2021 · Лесная Тишина" aria-label="Открыть фото 5 из 6">
+            <picture><source srcset="assets/img/photo-05.webp" type="image/webp" /><img src="assets/img/photo-05.jpg" alt="20.02.2021 · Лесная Тишина" loading="lazy" /></picture>
+            <span class="gallery-item__zoom" aria-hidden="true">＋</span>
+          </button>
+          <button class="gallery-item gallery-item--tall reveal" style="--delay:0.00s" type="button"
+            data-full="assets/img/photo-06.jpg" data-webp="assets/img/photo-06.webp" data-caption="20.02.2021 · Лесная Тишина" aria-label="Открыть фото 6 из 6">
+            <picture><source srcset="assets/img/photo-06.webp" type="image/webp" /><img src="assets/img/photo-06.jpg" alt="20.02.2021 · Лесная Тишина" loading="lazy" /></picture>
+            <span class="gallery-item__zoom" aria-hidden="true">＋</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" id="booking">
+      <div class="container">
+        <div class="cta-panel reveal">
+          <div class="cta-panel__glow" aria-hidden="true"></div>
+          <div class="cta-content">
+            <span class="cta-kicker"><span class="urgent-dot"></span> Осталось 4 номера с панорамным видом</span>
+            <h2>Успейте забрать свой ключ <span>по старой цене</span></h2>
+            <p>На новогодние праздники (29.12 – 08.01) осталось всего <b>4 свободных номера</b> с панорамным видом. После 25 ноября стоимость брони вырастет на <b>35 000 ₽ за неделю</b>.</p>
+
+            <div class="countdown" aria-label="Время до фиксации цены">
+              <div><b id="cdDays">--</b><span>дней</span></div><i>:</i>
+              <div><b id="cdHours">--</b><span>часов</span></div><i>:</i>
+              <div><b id="cdMinutes">--</b><span>минут</span></div><i>:</i>
+              <div><b id="cdSeconds">--</b><span>секунд</span></div>
+            </div>
+
+            <button class="btn btn--primary btn--xl" type="button" data-open-modal>Получить фиксацию цены до 25.11 <span class="btn-arrow" aria-hidden="true">→</span></button>
+            <p class="microtext">Менеджер перезвонит за 5 минут и пришлёт видеообзор номера в WhatsApp</p>
+          </div>
+          <div class="cta-key" aria-hidden="true">
+            <div class="key-ring"><span></span></div>
+            <div class="key-tag">№ 4</div>
+            <div class="key-blade"><i></i><i></i><i></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a class="brand brand--footer" href="#top"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M20 4 9 19h6l-7 10h10v7h4v-7h10L25 19h6L20 4Z" fill="currentColor"/></svg></span><span class="brand-text">Лесная <b>Тишина</b></span></a>
+      <p>Эсто-Садок, Красная Поляна · 6 минут до «Роза Хутор»</p>
+      <a href="tel:+78000000000">+7 800 000-00-00</a>
+      <span class="footer-copy">© 2026 Лесная Тишина</span>
+    </div>
+  </footer>
+
+  <!-- Модалка заявки -->
+  <dialog class="modal rf-dialog" id="bookingModal" aria-labelledby="rfTitle">
+    <form class="rf-body" id="hotelRequestForm" novalidate data-endpoint="">
+      <button class="rf-close" type="button" data-close-modal aria-label="Закрыть">×</button>
+      <span class="rf-kicker">Фиксация цены до 25.11</span>
+      <h2 class="rf-title" id="rfTitle">Оставьте заявку на шале</h2>
+      <p class="rf-intro">Менеджер уточнит даты и пришлёт видеообзор номера.</p>
+
+      <div class="rf-field">
+        <label for="rfName">Имя</label>
+        <input id="rfName" type="text" name="name" placeholder="Как к вам обращаться" autocomplete="name" aria-describedby="rfNameError" />
+        <span class="rf-error" id="rfNameError" role="alert"></span>
+      </div>
+
+      <div class="rf-field">
+        <label for="rfPhone">Телефон</label>
+        <input id="rfPhone" type="tel" name="phone" value="+7 " inputmode="tel" autocomplete="tel" placeholder="+7 (999) 000-00-00" aria-describedby="rfPhoneError" />
+        <span class="rf-error" id="rfPhoneError" role="alert"></span>
+      </div>
+
+      <div class="rf-dates">
+        <div class="rf-field">
+          <label for="rfCheckin">Заезд</label>
+          <input id="rfCheckin" type="date" name="checkin" aria-describedby="rfCheckinError" />
+          <span class="rf-error" id="rfCheckinError" role="alert"></span>
+        </div>
+        <div class="rf-field">
+          <label for="rfCheckout">Выезд</label>
+          <input id="rfCheckout" type="date" name="checkout" aria-describedby="rfCheckoutError" />
+          <span class="rf-error" id="rfCheckoutError" role="alert"></span>
+        </div>
+      </div>
+
+      <div class="rf-field">
+        <label for="rfComment">Комментарий <span aria-hidden="true">(необязательно)</span></label>
+        <textarea id="rfComment" name="comment" placeholder="Например, нужны два отдельных халата для детей"></textarea>
+      </div>
+
+      <div class="rf-field rf-consent">
+        <label class="rf-checkbox" for="rfConsent">
+          <input id="rfConsent" type="checkbox" name="consent" aria-describedby="rfConsentError" />
+          <span class="rf-checkbox__box" aria-hidden="true">✓</span>
+          <span>Я согласен(на) на обработку персональных данных и получение звонка от менеджера</span>
+        </label>
+        <span class="rf-error" id="rfConsentError" role="alert"></span>
+      </div>
+
+      <p class="rf-form-error" id="rfFormError" role="alert"></p>
+      <button class="rf-submit" type="submit">Получить фиксацию цены до 25.11</button>
+      <p class="rf-micro">Менеджер перезвонит за 5 минут и пришлет видеообзор номера в WhatsApp</p>
+    </form>
+
+    <div class="rf-success" id="rfSuccess" hidden>
+      <div class="rf-success__icon" aria-hidden="true">✓</div>
+      <p class="rf-success__text">Спасибо! Мы уже ищем для вас лучший номер. Менеджер свяжется с вами в течение 5 минут.</p>
+      <button class="rf-submit" type="button" data-close-modal>Закрыть</button>
+    </div>
+  </dialog>
+
+
+  <!-- Лайтбокс галереи -->
+  <dialog class="lightbox" id="lightbox" aria-label="Просмотр фотографии">
+    <button class="lightbox__close" type="button" data-lightbox-close aria-label="Закрыть">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" type="button" data-lightbox-prev aria-label="Предыдущее фото">‹</button>
+    <picture class="lightbox__picture">
+      <source id="lightboxWebp" srcset="" type="image/webp" />
+      <img id="lightboxImg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" />
+    </picture>
+    <button class="lightbox__nav lightbox__nav--next" type="button" data-lightbox-next aria-label="Следующее фото">›</button>
+    <div class="lightbox__caption"><span id="lightboxCaption"></span><small id="lightboxCount"></small></div>
+  </dialog>
+
+  <script src="form.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
