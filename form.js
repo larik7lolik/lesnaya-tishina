@@ -121,9 +121,12 @@
   }
 
   async function sendToSheets() {
+    // В таблицу отправляем только цифры: старый развёрнутый скрипт пишет
+    // значение как есть, а «+7 ...» Google Sheets воспринимает как формулу.
+    const phoneDigits = fields.phone.value.replace(/\D/g, '');
     const payload = {
       name: fields.name.value.trim(),
-      phone: fields.phone.value,
+      phone: phoneDigits,
       checkin: fields.checkin.value,
       checkout: fields.checkout.value,
       comment: fields.comment.value.trim(),
