@@ -10,6 +10,7 @@
 
 const SHEET_NAME = 'Заявки';
 const HEADERS = ['Дата', 'Имя', 'Телефон', 'Заезд', 'Выезд', 'Комментарий', 'Согласие', 'Источник', 'IP'];
+const SCRIPT_VERSION = '2026-11-22-digits';
 
 // Запасные значения на случай, если в редактор вставлена не вся версия файла.
 function sheetName() {
@@ -41,14 +42,14 @@ function doPost(e) {
       sheet.setColumnWidth(3, 180);
     }
 
-    // Столбец C — телефон. Без текстового формата Google Sheets воспринимает
-    // номер, начинающийся с «+», как формулу и показывает ошибку в ячейке.
+    // Телефон храним только цифрами: значение не начинается ни с «+», ни с «=»,
+    // поэтому Google Sheets не может воспринять его как формулу.
     sheet.getRange('C:C').setNumberFormat('@');
 
     sheet.appendRow([
       new Date(),
       String(data.name || ''),
-      textPhone(data.phone),
+      normalizePhone(data.phone),
       String(data.checkin || ''),
       String(data.checkout || ''),
       String(data.comment || ''),
@@ -61,7 +62,8 @@ function doPost(e) {
       ok: true,
       spreadsheetUrl: ss.getUrl(),
       sheet: sheetName(),
-      row: sheet.getLastRow()
+      row: sheet.getLastRow(),
+      version: SCRIPT_VERSION
     });
   } catch (error) {
     return jsonResponse({ ok: false, error: error.message });
@@ -77,34 +79,22 @@ function doPost(e) {
 function doGet() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const text = ss
-    ? 'Лесная Тишина — приём заявок активен\nТаблица: ' + ss.getUrl() + '\nЛист: ' + sheetName()
+    ? 'Лесная Тишина — приём заявок активен\nТаблица: ' + ss.getUrl() + '\nЛист: ' + sheetName() + '\nВерсия: ' + SCRIPT_VERSION
     : 'Лесная Тишина — скрипт не привязан к таблице';
   return ContentService.createTextOutput(text);
 }
 
 /**
- * Апостроф перед номером заставляет Google Sheets хранить значение текстом,
- * а не формулой. Сам апостроф в ячейке не отображается.
+ * Телефон хранится только цифрами, например 79991234567.
+ * Так ячейка никогда не воспринимается как формула, и в ней не появляется #ERROR!.
+ * Если телефон распознать не удалось, возвращаем пустую строку.
  */
-function textPhone(value) {
-  return "'" + normalizePhone(value);
-}
-
-/** Приводит телефон к текстовому виду +7 (XXX) XXX-XX-XX. */
 function normalizePhone(value) {
   let digits = String(value || '').replace(/\D/g, '');
   if (digits.startsWith('8')) digits = '7' + digits.slice(1);
   if (digits && !digits.startsWith('7')) digits = '7' + digits;
   digits = digits.slice(0, 11);
-  if (digits.length !== 11) return String(value || '');
-  const d = digits.slice(1);
-  let out = '+7';
-  if (d.length > 0) out += ' (' + d.slice(0, 3);
-  if (d.length >= 3) out += ')';
-  if (d.length > 3) out += ' ' + d.slice(3, 6);
-  if (d.length >= 6) out += '-' + d.slice(6, 8);
-  if (d.length >= 8) out += '-' + d.slice(8, 10);
-  return out;
+  return digits.length === 11 ? digits : '';
 }
 
 /**
@@ -122,7 +112,7 @@ function fixPhoneColumn() {
   const values = range.getValues();
   const fixed = formulas.map((row, i) => {
     const raw = row[0] || values[i][0] || '';
-    return [textPhone(raw)];
+    return [normalizePhone(raw)];
   });
 
   range.setNumberFormat('@');
