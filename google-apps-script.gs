@@ -30,10 +30,14 @@ function doPost(e) {
       sheet.setColumnWidth(3, 180);
     }
 
+    // Столбец C — телефон. Без текстового формата Google Sheets воспринимает
+    // номер, начинающийся с «+», как формулу и показывает ошибку в ячейке.
+    sheet.getRange('C:C').setNumberFormat('@');
+
     sheet.appendRow([
       new Date(),
       String(data.name || ''),
-      String(data.phone || ''),
+      normalizePhone(data.phone),
       String(data.checkin || ''),
       String(data.checkout || ''),
       String(data.comment || ''),
@@ -65,6 +69,42 @@ function doGet() {
     ? 'Лесная Тишина — приём заявок активен\nТаблица: ' + ss.getUrl() + '\nЛист: ' + SHEET_NAME
     : 'Лесная Тишина — скрипт не привязан к таблице';
   return ContentService.createTextOutput(text);
+}
+
+/** Приводит телефон к текстовому виду +7 (XXX) XXX-XX-XX. */
+function normalizePhone(value) {
+  let digits = String(value || '').replace(/\D/g, '');
+  if (digits.startsWith('8')) digits = '7' + digits.slice(1);
+  if (digits && !digits.startsWith('7')) digits = '7' + digits;
+  digits = digits.slice(0, 11);
+  if (digits.length !== 11) return String(value || '');
+  const d = digits.slice(1);
+  let out = '+7';
+  if (d.length > 0) out += ' (' + d.slice(0, 3);
+  if (d.length >= 3) out += ')';
+  if (d.length > 3) out += ' ' + d.slice(3, 6);
+  if (d.length >= 6) out += '-' + d.slice(6, 8);
+  if (d.length >= 8) out += '-' + d.slice(8, 10);
+  return out;
+}
+
+/**
+ * Одноразовое исправление уже записанных строк: запустите эту функцию
+ * в редакторе Apps Script один раз, если в столбце «Телефон» были ошибки.
+ */
+function fixPhoneColumn() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss && ss.getSheetByName(SHEET_NAME);
+  const last = sheet && sheet.getLastRow();
+  if (!sheet || !last || last < 2) return;
+
+  const range = sheet.getRange(2, 3, last - 1, 1);
+  const formulas = range.getFormulas();
+  const values = range.getValues();
+  const fixed = formulas.map((row, i) => [String(row[0] || values[i][0] || '')]);
+
+  range.setNumberFormat('@');
+  range.setValues(fixed);
 }
 
 function parsePayload(e) {
