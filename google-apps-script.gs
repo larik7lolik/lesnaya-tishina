@@ -11,6 +11,17 @@
 const SHEET_NAME = 'Заявки';
 const HEADERS = ['Дата', 'Имя', 'Телефон', 'Заезд', 'Выезд', 'Комментарий', 'Согласие', 'Источник', 'IP'];
 
+// Запасные значения на случай, если в редактор вставлена не вся версия файла.
+function sheetName() {
+  return typeof SHEET_NAME === 'undefined' ? 'Заявки' : SHEET_NAME;
+}
+
+function headers() {
+  return typeof HEADERS === 'undefined'
+    ? ['Дата', 'Имя', 'Телефон', 'Заезд', 'Выезд', 'Комментарий', 'Согласие', 'Источник', 'IP']
+    : HEADERS;
+}
+
 function doPost(e) {
   const lock = LockService.getScriptLock();
   lock.waitLock(10000);
@@ -20,11 +31,11 @@ function doPost(e) {
     if (!ss) {
       throw new Error('Скрипт не привязан к таблице: откройте её и создайте Apps Script через Расширения → Apps Script');
     }
-    let sheet = ss.getSheetByName(SHEET_NAME);
+    let sheet = ss.getSheetByName(sheetName());
 
     if (!sheet) {
-      sheet = ss.insertSheet(SHEET_NAME);
-      sheet.appendRow(HEADERS);
+      sheet = ss.insertSheet(sheetName());
+      sheet.appendRow(headers());
       sheet.setFrozenRows(1);
       sheet.setColumnWidth(1, 160);
       sheet.setColumnWidth(3, 180);
@@ -49,7 +60,7 @@ function doPost(e) {
     return jsonResponse({
       ok: true,
       spreadsheetUrl: ss.getUrl(),
-      sheet: SHEET_NAME,
+      sheet: sheetName(),
       row: sheet.getLastRow()
     });
   } catch (error) {
@@ -66,7 +77,7 @@ function doPost(e) {
 function doGet() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const text = ss
-    ? 'Лесная Тишина — приём заявок активен\nТаблица: ' + ss.getUrl() + '\nЛист: ' + SHEET_NAME
+    ? 'Лесная Тишина — приём заявок активен\nТаблица: ' + ss.getUrl() + '\nЛист: ' + sheetName()
     : 'Лесная Тишина — скрипт не привязан к таблице';
   return ContentService.createTextOutput(text);
 }
@@ -94,7 +105,7 @@ function normalizePhone(value) {
  */
 function fixPhoneColumn() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
-  const sheet = ss && ss.getSheetByName(SHEET_NAME);
+  const sheet = ss && ss.getSheetByName(sheetName());
   const last = sheet && sheet.getLastRow();
   if (!sheet || !last || last < 2) return;
 
